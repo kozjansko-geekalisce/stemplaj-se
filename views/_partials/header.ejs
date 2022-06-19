@@ -11,6 +11,8 @@
     />
   </head>
   <body>
-    <%- include('navbar'); -%>
+    <% if (!locals.hideNavbar) { %>
+      <%- include('navbar'); -%>
+    <% } %>
     <section class="section">
       <div class="container">
