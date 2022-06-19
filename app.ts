@@ -21,12 +21,12 @@ app.get('/admin', (req: Request, res: Response) => {
 })
 
 app.get('/admin/locations', async (req: Request, res: Response) => {
-  const context = await getLocationListingContext()
+  const context = await getLocationListingContext(req)
   res.render('locations', context)
 })
 
 app.get('/admin/users', async (req: Request, res: Response) => {
-  const context = await getUserListingContext()
+  const context = await getUserListingContext(req)
   res.render('users', context)
 })
 
