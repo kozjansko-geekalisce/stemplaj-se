@@ -7,6 +7,7 @@ import { PrismaSessionStore } from '@quixo3/prisma-session-store'
 
 import { getLocationListContext, createLocation } from './controllers/location.js'
 import { getUserListContext } from './controllers/user.js'
+import { getBaseContext } from './controllers/_base.js'
 
 const prisma = new PrismaClient()
 const app: Express = express()
@@ -39,6 +40,14 @@ app.set('view engine', 'ejs')
 
 app.get('/', (req: Request, res: Response) => {
   res.redirect('/admin')
+})
+
+app.get('/login', async (req: Request, res: Response) => {
+  res.render('login', getBaseContext(req))
+})
+
+app.post('/login', async (req: Request, res: Response) => {
+  res.redirect('/')
 })
 
 // ADMIN
