@@ -1,0 +1,9 @@
+<a
+  class="
+    <% if (dropdown) { %>navbar-link<% } else { %>navbar-item<% } %>
+    <% if (currentURL === link.url) { %>has-text-weight-bold<% } %>
+  "
+  href="<%= link.url %>"
+>
+  <%= link.label %>
+</a>

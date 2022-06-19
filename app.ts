@@ -2,7 +2,7 @@ import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
 import express, { Express, Request, Response } from 'express'
 
-import { getLocationListContext } from './controllers/location.js'
+import { getLocationListContext, createLocation } from './controllers/location.js'
 import { getUserListContext } from './controllers/user.js'
 
 const prisma = new PrismaClient()
@@ -10,6 +10,7 @@ const app: Express = express()
 const port = 3000
 
 app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 app.set('view engine', 'ejs')
 
 app.get('/', (req: Request, res: Response) => {
@@ -24,6 +25,16 @@ app.get('/admin', (req: Request, res: Response) => {
 app.get('/admin/locations', async (req: Request, res: Response) => {
   const context = await getLocationListContext(req)
   res.render('location/list', context)
+})
+
+app.get('/admin/locations/create', async (req: Request, res: Response) => {
+  const context = await getLocationListContext(req)
+  res.render('location/create', context)
+})
+
+app.post('/admin/locations/create', async (req: Request, res: Response) => {
+  await createLocation(req)
+  res.redirect('/admin/locations')
 })
 
 app.get('/admin/users', async (req: Request, res: Response) => {

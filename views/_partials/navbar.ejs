@@ -20,12 +20,18 @@
     <div id="navbarBasicExample" class="navbar-menu">
       <div class="navbar-start">
         <% navigationLinks.forEach(link => { %>
-        <a
-          class="navbar-item <% if (currentURL === link.url) { %>is-active<% } %>"
-          href="<%= link.url %> "
-        >
-          <%= link.label %>
-        </a>
+          <% if (link.dropdown) { %>
+            <div class="navbar-item has-dropdown is-hoverable">
+              <%- include('navbar_link', { link, dropdown: true }) %>
+              <div class="navbar-dropdown">
+                <% link.dropdown.forEach(dropdownLink => { %>
+                  <%- include('navbar_link', { link: dropdownLink, dropdown: false }) %>
+                <% }) %>
+              </div>
+            </div>
+          <% } else { %>
+            <%- include('navbar_link', { link, dropdown: false }) %>
+          <% } %>
         <% }) %>
       </div>
 
