@@ -1,6 +1,9 @@
 import 'dotenv/config'
-import { PrismaClient } from '@prisma/client'
 import express, { Express, Request, Response } from 'express'
+import session from 'express-session'
+import passport from 'passport'
+import { PrismaClient } from '@prisma/client'
+import { PrismaSessionStore } from '@quixo3/prisma-session-store'
 
 import { getLocationListContext, createLocation } from './controllers/location.js'
 import { getUserListContext } from './controllers/user.js'
@@ -11,6 +14,27 @@ const port = 3000
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(
+  session({
+    cookie: {
+     maxAge: 7 * 24 * 60 * 60 * 1000
+    },
+    secret: 'a santa at nasa',
+    resave: true,
+    saveUninitialized: true,
+    store: new PrismaSessionStore(
+      prisma,
+      {
+        checkPeriod: 2 * 60 * 1000,
+        dbRecordIdIsSessionId: true,
+        dbRecordIdFunction: undefined,
+      }
+    )
+  })
+)
+app.use(passport.initialize())
+app.use(passport.session())
+
 app.set('view engine', 'ejs')
 
 app.get('/', (req: Request, res: Response) => {

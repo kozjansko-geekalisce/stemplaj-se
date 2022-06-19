@@ -10,6 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Session {
+  id        String   @id @default(uuid())
+  sid       String   @unique
+  data      String
+  expiresAt DateTime
+}
+
 model Visit {
   id         String   @id @default(uuid())
   createdAt  DateTime @default(now())
@@ -20,14 +27,19 @@ model Visit {
 }
 
 model User {
-  id     String  @id @default(uuid())
-  email  String  @unique
-  name   String?
-  visits Visit[]
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  password  String
+  updatedAt DateTime @updatedAt
+  admin     Boolean  @default(false)
+  visits    Visit[]
 }
 
 model Location {
   id        String  @id @default(uuid())
+  createdAt DateTime @default(now())
   name      String  @unique
   latitude  Float
   longitude Float

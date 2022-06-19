@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import argon2id from 'argon2'
 
 const prisma = new PrismaClient()
 
@@ -29,6 +30,7 @@ async function main() {
     create: {
       email: 'anica@example.com',
       name: 'Anica',
+      password: await argon2id.hash('Anica123!'),
     },
   })
 
@@ -38,6 +40,7 @@ async function main() {
     create: {
       email: 'robi@example.com',
       name: 'Robi',
+      password: await argon2id.hash('Robi123!'),
     },
   })
 
