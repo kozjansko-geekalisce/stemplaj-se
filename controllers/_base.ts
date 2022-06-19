@@ -9,6 +9,6 @@ export const getBaseContext = (request: Request) => {
   return {
     currentURL: request.url,
     navigationLinks: NAVIGATION_LINKS,
-    templateRoot: process.cwd() + "/views",
+    partials: process.cwd() + "/views/_partials",
   }
 }

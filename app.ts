@@ -2,8 +2,8 @@ import 'dotenv/config'
 import { PrismaClient } from '@prisma/client'
 import express, { Express, Request, Response } from 'express'
 
-import { getLocationListingContext } from './controllers/location.js'
-import { getUserListingContext } from './controllers/user.js'
+import { getLocationListContext } from './controllers/location.js'
+import { getUserListContext } from './controllers/user.js'
 
 const prisma = new PrismaClient()
 const app: Express = express()
@@ -16,20 +16,23 @@ app.get('/', (req: Request, res: Response) => {
   res.redirect('/admin')
 })
 
+// ADMIN
 app.get('/admin', (req: Request, res: Response) => {
   res.redirect('/admin/locations')
 })
 
 app.get('/admin/locations', async (req: Request, res: Response) => {
-  const context = await getLocationListingContext(req)
-  res.render('location/listing', context)
+  const context = await getLocationListContext(req)
+  res.render('location/list', context)
 })
 
 app.get('/admin/users', async (req: Request, res: Response) => {
-  const context = await getUserListingContext(req)
-  res.render('user/listing', context)
+  const context = await getUserListContext(req)
+  res.render('user/list', context)
 })
 
+
+// API
 app.get('/locations', async (req, res) => {
   const locations = await prisma.location.findMany()
   res.json(locations)
