@@ -18,6 +18,9 @@ npx prisma migrate reset
 
 # Start dev environment
 yarn dev
+
+# Format all TS files
+yarn format
 ```
 
 ## Useful links
