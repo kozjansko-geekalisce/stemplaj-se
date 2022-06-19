@@ -1,6 +1,14 @@
 <%- include(`${partials}/header`, { hideNavbar: true }) -%>
 
-<form method="POST" class="is-flex is-justify-content-center is-align-items-center">
+<div class="has-text-centered">
+  <h1 class="title is-2">štemplaj<span class="has-text-grey-lighter">.</span>se</h1>
+  <h2 class="subtitle has-text-grey">Naglas je na e.</h2>
+</div>
+
+<form
+  method="POST"
+  class="is-flex is-justify-content-center is-align-items-center mt-5"
+>
   <div class="card login-card">
     <div class="card-content">
       <div class="content">
@@ -13,6 +21,7 @@
               name="email"
               placeholder="polda@stemplaj.se"
               required
+              autofocus
             />
           </div>
         </div>
