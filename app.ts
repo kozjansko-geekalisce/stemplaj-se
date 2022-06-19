@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client'
 import express, { Express, Request, Response } from 'express'
 
 import { getLocationListingContext } from './controllers/location.js'
+import { getUserListingContext } from './controllers/user.js'
 
 const prisma = new PrismaClient()
 const app: Express = express()
@@ -22,6 +23,11 @@ app.get('/admin', (req: Request, res: Response) => {
 app.get('/admin/locations', async (req: Request, res: Response) => {
   const context = await getLocationListingContext()
   res.render('locations', context)
+})
+
+app.get('/admin/users', async (req: Request, res: Response) => {
+  const context = await getUserListingContext()
+  res.render('users', context)
 })
 
 app.get('/locations', async (req, res) => {

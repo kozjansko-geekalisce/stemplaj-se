@@ -1,0 +1,25 @@
+<%- include('_header'); -%>
+
+<h1 class="title">Uporabniki</h1>
+<p class="subtitle">Vsi uporabniki v sistemu</p>
+
+<table class="table is-fullwidth is-hoverable">
+  <thead>
+    <tr>
+      <th>UUID</th>
+      <th>Ime</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.forEach(user => { %>
+    <tr>
+      <td><%= user.id %></td>
+      <td><%= user.name %></td>
+      <td><%= user.email %></td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<%- include('_footer'); -%>
