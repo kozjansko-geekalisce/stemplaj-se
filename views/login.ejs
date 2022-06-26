@@ -7,41 +7,52 @@
 
 <form
   method="POST"
+  action="/login/password"
   class="is-flex is-justify-content-center is-align-items-center mt-5"
 >
-  <div class="card login-card">
-    <div class="card-content">
-      <div class="content">
-        <div class="field">
-          <label class="label">E-mail naslov</label>
-          <div class="control">
-            <input
-              class="input"
-              type="text"
-              name="email"
-              placeholder="polda@stemplaj.se"
-              required
-              autofocus
-            />
-          </div>
+  <div class="login-card">
+    <% if (hasMessages) { %>
+      <article class="message is-danger">
+        <div class="message-body">
+          <%- messages[0] %>
         </div>
+      </article>
+    <% } %>
 
-        <div class="field">
-          <label class="label">Geslo</label>
-          <div class="control">
-            <input
-              class="input"
-              type="password"
-              placeholder="hunter2"
-              required
-              name="password"
-            />
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <div class="field">
+            <label class="label">E-mail naslov</label>
+            <div class="control">
+              <input
+                class="input"
+                type="text"
+                name="username"
+                placeholder="polda@stemplaj.se"
+                required
+                autofocus
+              />
+            </div>
           </div>
-        </div>
 
-        <div class="field has-text-right mt-5">
-          <div class="control">
-            <button class="button is-primary">Prijavi se</button>
+          <div class="field">
+            <label class="label">Geslo</label>
+            <div class="control">
+              <input
+                class="input"
+                type="password"
+                placeholder="hunter2"
+                required
+                name="password"
+              />
+            </div>
+          </div>
+
+          <div class="field has-text-right mt-5">
+            <div class="control">
+              <button class="button is-primary">Prijavi se</button>
+            </div>
           </div>
         </div>
       </div>
