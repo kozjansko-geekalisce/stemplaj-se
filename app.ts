@@ -35,6 +35,7 @@ app.use(
 )
 app.use(passport.initialize())
 app.use(passport.session())
+app.use(defaultTemplateContext)
 
 app.set('view engine', 'ejs')
 
@@ -43,7 +44,7 @@ app.get('/', (req: Request, res: Response) => {
 })
 
 app.get('/login', async (req: Request, res: Response) => {
-  res.render('login', getBaseContext(req))
+  res.render('login')
 })
 
 app.post('/login', async (req: Request, res: Response) => {
