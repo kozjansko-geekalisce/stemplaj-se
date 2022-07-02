@@ -17,6 +17,7 @@ declare module 'express-session' {
 import {
   getLocationListContext,
   createLocation,
+  visitLocation,
 } from './controllers/location.js'
 import { getVisitListContext } from './controllers/visit.js'
 import { getUserListContext } from './controllers/user.js'
@@ -163,6 +164,15 @@ app.get(
 app.get('/locations', ensureLogin, async (req, res) => {
   const locations = await prisma.location.findMany()
   res.json(locations)
+})
+
+app.post('/locations/:locationId', ensureLogin, async (req, res) => {
+  try {
+    const success = await visitLocation(req)
+    res.json({success})
+  } catch (error: any) {
+    res.json({success: false, error: error.message})
+  }
 })
 
 app.listen(port, () => {
