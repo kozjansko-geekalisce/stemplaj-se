@@ -7,6 +7,7 @@ export const NAVIGATION_LINKS = [
     dropdown: [{ url: '/admin/locations/create', label: 'Dodaj' }],
   },
   { url: '/admin/users', label: 'Uporabniki' },
+  { url: '/admin/visits', label: 'Obiski' },
 ]
 
 export const defaultTemplateContext = (

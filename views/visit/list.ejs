@@ -1,0 +1,37 @@
+<%- include(`${partials}/header`); -%>
+
+<h1 class="title">Obiski</h1>
+<p class="subtitle">Vsi obiski v sistemu</p>
+
+<table class="table is-fullwidth is-hoverable">
+  <thead>
+    <tr>
+      <th>UUID</th>
+      <th>Lokacija</th>
+      <th>Obiskovalec</th>
+      <th>Datum</th>
+      <th>Brisanje</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% visits.forEach(visit => { %>
+    <tr>
+      <td><%= visit.id %></td>
+      <td><%= visit.location.name %></td>
+      <td><%= visit.visitor.name %></td>
+      <td><%= visit.createdAt %></td>
+      <td>
+        <form action="/admin/delete-visit/<%= visit.id %>">
+          <button class="button is-danger is-small">Izbriši</button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
+
+<pre>
+  <%-   JSON.stringify(visits)  %>
+</pre>
+
+<%- include(`${partials}/footer`); -%>

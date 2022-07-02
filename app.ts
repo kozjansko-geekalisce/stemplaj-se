@@ -18,6 +18,7 @@ import {
   getLocationListContext,
   createLocation,
 } from './controllers/location.js'
+import { getVisitListContext } from './controllers/visit.js'
 import { getUserListContext } from './controllers/user.js'
 import { defaultTemplateContext } from './controllers/_base.js'
 import argon2 from 'argon2'
@@ -147,6 +148,15 @@ app.get('/admin/users', ensureLogin, async (req: Request, res: Response) => {
   const context = await getUserListContext(req)
   res.render('user/list', context)
 })
+
+app.get(
+  '/admin/visits',
+  ensureLogin,
+  async (req: Request, res: Response) => {
+    const context = await getVisitListContext(req)
+    res.render('visit/list', context)
+  }
+)
 
 
 // API
