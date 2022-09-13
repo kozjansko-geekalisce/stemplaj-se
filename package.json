@@ -38,7 +38,8 @@
     "build": "npx tsc",
     "start": "node dist/app.js",
     "dev": "npx nodemon ./app.ts",
-    "format": "npx prettier **/*.ts --write"
+    "format": "npx prettier **/*.ts --write",
+    "seed": "npx prisma migrate reset --force"
   },
   "nodemonConfig": {
     "execMap": {

@@ -2,25 +2,35 @@
 
 Mobile app for encouragement of local activity
 
-## Dev environment setup
+## Dev environment with everything in Docker
+
+```bash
+# Start dev container with the database in the background, omit the -d if you
+# want to see container terminal output.
+docker-compose up -d
+
+# Run migrations and insert seed data
+docker compose run app yarn seed
+```
+
+The app will be visible on `http://localhost:3000/login`
+
+## Dev environment with app running locally
 
 Make sure you have a recent version of Node installed locally.
 
 ```bash
 # Start dev container with the database in the background
-docker-compose up -d
+docker-compose up postgres -d
 
 # Install npm dependencies
 yarn
 
 # Run migrations and insert seed data
-npx prisma migrate reset
+yarn seed
 
 # Start dev environment
 yarn dev
-
-# Format all TS files
-yarn format
 ```
 
 ## Useful links
