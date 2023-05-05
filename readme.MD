@@ -7,7 +7,7 @@ Mobile app for encouragement of local activity
 ```bash
 # Start dev container with the database in the background, omit the -d if you
 # want to see container terminal output.
-docker-compose up -d
+docker compose up -d
 
 # Run migrations and insert seed data
 docker compose run app yarn seed
@@ -21,7 +21,7 @@ Make sure you have a recent version of Node installed locally.
 
 ```bash
 # Start dev container with the database in the background
-docker-compose up postgres -d
+docker compose up postgres -d
 
 # Install npm dependencies
 yarn
