@@ -13,6 +13,18 @@ export async function getLocation(id: string) {
   return await prisma.location.findUnique({ where: { id } })
 }
 
+export async function listAllLocations() {
+  return await prisma.location.findMany()
+}
+
+export async function createLocation(
+  name: string,
+  latitude: number,
+  longitude: number
+) {
+  return await prisma.location.create({ data: { name, latitude, longitude } })
+}
+
 export async function userVisitedLocationRecently(
   user: User,
   location: Location

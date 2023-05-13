@@ -7,7 +7,9 @@ import { PrismaClient } from '@prisma/client'
 
 import configurePassport from './config/auth.js'
 import getSessionConfig from './config/session.js'
-import routes from './config/routes.js'
+import authRoutes from './config/routes/auth.js'
+import adminRoutes from './config/routes/admin.js'
+import apiRoutes from './config/routes/api.js'
 import { defaultTemplateContext } from './controllers/_base.js'
 
 const prisma = new PrismaClient()
@@ -30,7 +32,9 @@ app.set('view engine', 'ejs')
 app.use(defaultTemplateContext)
 
 // Register all routes
-app.use('/', routes(passport))
+app.use('/', authRoutes(passport))
+app.use('/admin', adminRoutes())
+app.use('/api', apiRoutes())
 
 app.listen(port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${port}`)
