@@ -1,5 +1,11 @@
 import { NextFunction, Request, Response } from 'express'
 
+declare module 'express-session' {
+  interface SessionData {
+    messages: string[]
+  }
+}
+
 export const NAVIGATION_LINKS = [
   {
     url: '/admin/locations',
@@ -26,8 +32,3 @@ export const defaultTemplateContext = (
 
   next()
 }
-
-// app.use(function (req, res, next) {
-//   res.locals.csrfToken = req.csrfToken()
-//   next()
-// })
