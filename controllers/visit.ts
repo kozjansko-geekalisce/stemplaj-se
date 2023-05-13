@@ -7,8 +7,7 @@ export const getVisitListContext = async (req: Request) => {
     include: {
       visitor: true,
       location: true,
-    }
+    },
   })
   return { visits }
 }
-

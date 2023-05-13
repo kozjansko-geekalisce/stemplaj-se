@@ -166,7 +166,7 @@ app.get('/locations', ensureLogin, async (req, res) => {
   res.json(locations)
 })
 
-app.post('/locations/:locationId', ensureLogin, async (req, res) => {
+app.post('/visits', ensureLogin, async (req, res) => {
   try {
     const success = await visitLocation(req)
     res.json({success})

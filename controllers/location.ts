@@ -1,6 +1,10 @@
 import { PrismaClient, User } from '@prisma/client'
-import { subHours } from 'date-fns'
 import { Request } from 'express'
+import {
+  getLocation,
+  userVisitedLocationRecently,
+  positionIsNearLocation,
+} from '../services/location.js'
 const prisma = new PrismaClient()
 
 export const getLocationListContext = async (request: Request) => {
@@ -22,33 +26,22 @@ export const createLocation = async (request: Request) => {
 
 export const visitLocation = async (req: Request) => {
   const visitor = req.user! as User
-  const location = await prisma.location.findUnique({
-    where: { id: req.params.locationId },
-  })
+  const location = await getLocation(req.body.locationId)
+  const userPosition = req.body.position
 
-  if (!location) {
-    throw new Error('OBJECT_NOT_FOUND')
-  }
+  if (!location) throw new Error('LOCATION_NOT_FOUND')
 
-  const twelveHoursAgo = subHours(new Date(), 12)
-  const recentVisit = await prisma.visit.findFirst({
-    where: {
-      createdAt: { gte: twelveHoursAgo },
-      visitor,
-      location,
-    },
-  })
-
-  if (recentVisit) {
+  if (await userVisitedLocationRecently(visitor, location))
     throw new Error('VISITED_RECENTLY')
-  }
+
+  if (!(await positionIsNearLocation(userPosition, location)))
+    throw new Error('TOO_FAR_AWAY')
 
   await prisma.visit.create({
     data: {
-      location: {connect: { id: location.id}},
-      visitor: {connect: {id: visitor.id}},
-
-    }
+      location: { connect: { id: location.id } },
+      visitor: { connect: { id: visitor.id } },
+    },
   })
 
   return true
