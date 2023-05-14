@@ -5,7 +5,7 @@ import {
   getLocationListContext,
   postLocation,
 } from '../../controllers/location.js'
-import { getVisitListContext } from '../../controllers/visit.js'
+import { getVisitListContext, deleteVisitAdmin } from '../../controllers/visit.js'
 import { getUserListContext } from '../../controllers/user.js'
 
 export default function () {
@@ -60,6 +60,8 @@ export default function () {
       res.render('visit/list', context)
     }
   )
+
+  router.post('/visits/delete/:id', ensureLogin, deleteVisitAdmin)
 
   return router
 }

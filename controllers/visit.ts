@@ -5,6 +5,9 @@ import {
   userVisitedLocationRecently,
   positionIsNearLocation,
 } from '../services/location.js'
+import { deleteVisit as deleteVisitService } from '../services/visit.js'
+import { flashMessage } from '../utils/messages.js'
+
 const prisma = new PrismaClient()
 
 export const getVisitListContext = async (req: Request) => {
@@ -41,4 +44,17 @@ export const postVisit = async (request: Request, response: Response) => {
   } catch (error: any) {
     response.json({ success: false, error: error.message })
   }
+}
+
+export const deleteVisit = async (request: Request) => {
+  return await deleteVisitService(request.params.id)
+}
+
+export const deleteVisitAdmin = async (
+  request: Request,
+  response: Response
+) => {
+  await deleteVisit(request)
+  flashMessage(request, 'Obisk uspešno izbrisan.', 'success')
+  response.redirect('/admin/visits')
 }
