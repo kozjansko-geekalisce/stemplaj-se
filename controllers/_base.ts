@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
+import { processMessagesForTemplate } from '../utils/messages.js'
 
 declare module 'express-session' {
   interface SessionData {
@@ -21,10 +22,9 @@ export const defaultTemplateContext = (
   res: Response,
   next: NextFunction
 ) => {
-  const msgs = req.session.messages || []
+  const msgs = processMessagesForTemplate(req)
   res.locals.messages = msgs
   res.locals.hasMessages = !!msgs.length
-  req.session.messages = []
 
   res.locals.currentURL = req.url
   res.locals.navigationLinks = NAVIGATION_LINKS

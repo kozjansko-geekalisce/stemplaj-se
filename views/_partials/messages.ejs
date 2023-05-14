@@ -1,0 +1,9 @@
+<% if (hasMessages) { %>
+  <% messages.forEach(message => { %>
+    <article class="message is-<%- message.type %>">
+      <div class="message-body">
+        <%- message.text %>
+      </div>
+    </article>
+  <% }) %>
+<% } %>

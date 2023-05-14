@@ -11,13 +11,7 @@
   class="is-flex is-justify-content-center is-align-items-center mt-5"
 >
   <div class="login-card">
-    <% if (hasMessages) { %>
-      <article class="message is-danger">
-        <div class="message-body">
-          <%- messages[0] %>
-        </div>
-      </article>
-    <% } %>
+    <%- include(`${partials}/messages`); -%>
 
     <div class="card">
       <div class="card-content">
