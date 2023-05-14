@@ -1,10 +1,11 @@
 import { Location, User } from '@prisma/client'
 import { subHours } from 'date-fns'
+
 import {
   getDistanceBetweenPositionsInKm,
   type Position,
-} from '../utils/distance.js'
-import VisitRepository from '../repositories/visit.js'
+} from '#utils/distance.js'
+import VisitRepository from '#repositories/visit.js'
 
 const MINIMUM_HOURS_BETWEEN_VISITS = 12
 const MAXIMUM_DISTANCE_FOR_VISIT_IN_METERS = 250

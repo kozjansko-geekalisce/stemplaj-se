@@ -3,6 +3,7 @@
     "target": "es2022",
     "module": "NodeNext",
     "outDir": "dist",
+    "rootDir": "./",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,

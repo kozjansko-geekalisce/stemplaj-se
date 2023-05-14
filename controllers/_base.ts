@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { processMessagesForTemplate } from '../utils/messages.js'
+import { processMessagesForTemplate } from '#utils/messages.js'
 
 declare module 'express-session' {
   interface SessionData {

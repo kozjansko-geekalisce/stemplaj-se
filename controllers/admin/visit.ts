@@ -1,7 +1,7 @@
 import type { Request, Response } from 'express'
 
-import { flashMessage } from '../../utils/messages.js'
-import VisitRepository from '../../repositories/visit.js'
+import { flashMessage } from '#utils/messages.js'
+import VisitRepository from '#repositories/visit.js'
 
 export const listVisits = async (request: Request, response: Response) => {
   const context = {visits: await VisitRepository.getMany()}

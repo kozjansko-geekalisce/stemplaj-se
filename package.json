@@ -42,6 +42,12 @@
     "format": "npx prettier **/*.ts --write",
     "seed": "npx prisma migrate reset --force"
   },
+  "imports": {
+    "#controllers/*": "./controllers/*",
+    "#repositories/*": "./repositories/*",
+    "#services/*": "./services/*",
+    "#utils/*": "./utils/*"
+  },
   "nodemonConfig": {
     "execMap": {
       "ts": "node --loader ts-node/esm"

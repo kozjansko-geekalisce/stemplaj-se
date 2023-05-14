@@ -4,9 +4,9 @@ import type { Request, Response } from 'express'
 import {
   userVisitedLocationRecently,
   positionIsNearLocation,
-} from '../../services/location.js'
-import LocationRepository from '../../repositories/location.js'
-import VisitRepository from '../../repositories/visit.js'
+} from '#services/location.js'
+import LocationRepository from '#repositories/location.js'
+import VisitRepository from '#repositories/visit.js'
 
 export const postVisit = async (request: Request, response: Response) => {
   try {

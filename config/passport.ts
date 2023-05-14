@@ -2,7 +2,8 @@ import { Strategy as LocalStrategy } from 'passport-local'
 import { User } from '@prisma/client'
 import argon2 from 'argon2'
 import { type PassportStatic } from 'passport'
-import UserRepository from '../repositories/user.js'
+
+import UserRepository from '#repositories/user.js'
 
 export default function (passport: PassportStatic) {
   passport.use(

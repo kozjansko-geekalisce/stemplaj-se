@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 
-import LocationRepository from '../../repositories/location.js'
-import { flashMessage } from '../../utils/messages.js'
+import LocationRepository from '#repositories/location.js'
+import { flashMessage } from '#utils/messages.js'
 
 export const listLocations = async (_: Request, response: Response) => {
   const context = {

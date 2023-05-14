@@ -1,7 +1,7 @@
 import express, { Router, Request, Response } from 'express'
 import { PassportStatic } from 'passport'
 
-import { loginForm, logout } from '../../controllers/auth.js'
+import { loginForm, logout } from '#controllers/auth.js'
 
 export default function (passport: PassportStatic) {
   const router: Router = express.Router()

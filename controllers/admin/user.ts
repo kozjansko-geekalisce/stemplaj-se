@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-import UserRepository from '../../repositories/user.js'
+import UserRepository from '#repositories/user.js'
 
 export const listUsers = async (_: Request, response: Response) => {
   const context = {

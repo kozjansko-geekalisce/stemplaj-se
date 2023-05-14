@@ -6,9 +6,9 @@ import {
   createLocationPost,
   deleteLocation,
   listLocations,
-} from '../../controllers/admin/location.js'
-import { listUsers } from '../../controllers/admin/user.js'
-import { deleteVisit, listVisits } from '../../controllers/admin/visit.js'
+} from '#controllers/admin/location.js'
+import { listUsers } from '#controllers/admin/user.js'
+import { deleteVisit, listVisits } from '#controllers/admin/visit.js'
 
 export default function () {
   const router: Router = express.Router()
