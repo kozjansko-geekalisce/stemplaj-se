@@ -16,7 +16,11 @@ export default class LocationRepository {
   }
 
   static async create(data: Prisma.LocationCreateInput) {
-    const location = prisma.location.create({ data })
+    const location = await prisma.location.create({ data })
     return location
+  }
+
+  static async delete(id: string) {
+    return await prisma.location.delete({ where: { id } })
   }
 }

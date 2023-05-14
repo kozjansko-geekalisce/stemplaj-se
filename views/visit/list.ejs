@@ -25,7 +25,12 @@
       <td><%= visit.createdAt %></td>
       <td>
         <form action="/admin/visits/delete/<%= visit.id %>" method="post">
-          <button class="button is-danger is-small">Izbriši</button>
+          <input
+            class="button is-danger is-small"
+            type="submit"
+            onclick="return confirm('Si ziher?')"
+            value="Izbriši"
+          />
         </form>
       </td>
     </tr>

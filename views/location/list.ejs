@@ -12,6 +12,7 @@
       <th>UUID</th>
       <th>Ime</th>
       <th>Lokacija</th>
+      <th>Brisanje</th>
     </tr>
   </thead>
   <tbody>
@@ -20,6 +21,16 @@
       <td><%= location.id %></td>
       <td><%= location.name %></td>
       <td><%= location.latitude %> <%= location.longitude %></td>
+      <td>
+        <form action="/admin/locations/delete/<%= location.id %>" method="post">
+          <input
+            class="button is-danger is-small"
+            type="submit"
+            onclick="return confirm('Si ziher?')"
+            value="Izbriši"
+          />
+        </form>
+      </td>
     </tr>
     <% }) %>
   </tbody>

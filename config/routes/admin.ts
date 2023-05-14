@@ -3,6 +3,7 @@ import { ensureLoggedIn } from 'connect-ensure-login'
 
 import {
   getLocationListContext,
+  deleteLocationAdmin,
   postLocation,
 } from '../../controllers/location.js'
 import { getVisitListContext, deleteVisitAdmin } from '../../controllers/visit.js'
@@ -42,6 +43,7 @@ export default function () {
       res.redirect('/admin/locations')
     }
   )
+  router.post('/locations/delete/:id', ensureLogin, deleteLocationAdmin)
 
   router.get(
     '/users',
