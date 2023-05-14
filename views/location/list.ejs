@@ -1,7 +1,9 @@
-<%- include(`${partials}/header`); -%>
-<%- include(`${partials}/messages`); -%>
+<% const title = 'Lokacije' %>
 
-<h1 class="title">Lokacije</h1>
+<%- include(`${partials}/header`, { title }); -%>
+<%- include(`${partials}/messages`) -%>
+
+<h1 class="title"><%= title %></h1>
 <p class="subtitle">Vse lokacije v sistemu</p>
 
 <table class="table is-fullwidth is-hoverable">

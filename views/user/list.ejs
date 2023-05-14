@@ -1,7 +1,9 @@
-<%- include(`${partials}/header`); -%>
+<% const title = 'Uporabniki' %>
+
+<%- include(`${partials}/header`, { title }); -%>
 <%- include(`${partials}/messages`); -%>
 
-<h1 class="title">Uporabniki</h1>
+<h1 class="title"><%= title %></h1>
 <p class="subtitle">Vsi uporabniki v sistemu</p>
 
 <table class="table is-fullwidth is-hoverable">

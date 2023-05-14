@@ -1,6 +1,8 @@
-<%- include(`${partials}/header`); -%>
+<% const title = 'Dodaj novo lokacijo'; %>
 
-<h1 class="title">Dodaj novo lokacijo</h1>
+<%- include(`${partials}/header`, { title }); -%>
+
+<h1 class="title"><%= title %></h1>
 
 <form method="POST">
   <div class="field is-horizontal">
