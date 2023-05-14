@@ -1,8 +1,7 @@
-import { PrismaClient } from '@prisma/client'
 import { Request } from 'express'
-const prisma = new PrismaClient()
+import UserRepository from '../repositories/user.js'
 
 export const getUserListContext = async (request: Request) => {
-  const users = await prisma.user.findMany()
+  const users = await UserRepository.getMany()
   return { users }
 }

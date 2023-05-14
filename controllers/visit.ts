@@ -1,29 +1,25 @@
-import { PrismaClient, User } from '@prisma/client'
-import { Request, Response } from 'express'
+import type { User } from '@prisma/client'
+import type { Request, Response } from 'express'
+
 import {
-  getLocation,
   userVisitedLocationRecently,
   positionIsNearLocation,
 } from '../services/location.js'
-import { deleteVisit } from '../services/visit.js'
 import { flashMessage } from '../utils/messages.js'
-
-const prisma = new PrismaClient()
+import LocationRepository from '../repositories/location.js'
+import VisitRepository from '../repositories/visit.js'
 
 export const getVisitListContext = async (req: Request) => {
-  const visits = await prisma.visit.findMany({
-    include: {
-      visitor: true,
-      location: true,
-    },
-  })
+  const visits = await VisitRepository.getMany()
   return { visits }
 }
 
 export const postVisit = async (request: Request, response: Response) => {
   try {
     const visitor = request.user! as User
-    const location = await getLocation(request.body.locationId)
+    const location = await LocationRepository.getOneById(
+      request.body.locationId
+    )
     const userPosition = request.body.position
 
     if (!location) throw new Error('LOCATION_NOT_FOUND')
@@ -34,12 +30,7 @@ export const postVisit = async (request: Request, response: Response) => {
     if (!(await positionIsNearLocation(userPosition, location)))
       throw new Error('TOO_FAR_AWAY')
 
-    await prisma.visit.create({
-      data: {
-        location: { connect: { id: location.id } },
-        visitor: { connect: { id: visitor.id } },
-      },
-    })
+    VisitRepository.create(visitor.id, location.id)
     response.json({ success: true })
   } catch (error: any) {
     response.json({ success: false, error: error.message })
@@ -47,7 +38,7 @@ export const postVisit = async (request: Request, response: Response) => {
 }
 
 export const deleteVisitApi = async (request: Request, response: Response) => {
-  const success = await deleteVisit(request.params.id)
+  const success = await VisitRepository.delete(request.params.id)
   return response.sendStatus(success ? 204 : 422)
 }
 
@@ -55,7 +46,7 @@ export const deleteVisitAdmin = async (
   request: Request,
   response: Response
 ) => {
-  const success = await deleteVisit(request.params.id)
+  const success = await VisitRepository.delete(request.params.id)
 
   if (success) flashMessage(request, 'Obisk uspešno izbrisan.', 'success')
   else flashMessage(request, 'Obiska ni bilo mogoče izbrisati.', 'danger')

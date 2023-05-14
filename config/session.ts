@@ -1,7 +1,9 @@
 import { PrismaSessionStore } from '@quixo3/prisma-session-store'
-import { type PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 
-export default function (prisma: PrismaClient) {
+const prisma = new PrismaClient()
+
+export default function () {
   return {
     cookie: {
       maxAge: 7 * 24 * 60 * 60 * 1000,

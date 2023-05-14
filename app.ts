@@ -3,7 +3,6 @@ import express from 'express'
 import session from 'express-session'
 import passport from 'passport'
 import cookieParser from 'cookie-parser'
-import { PrismaClient } from '@prisma/client'
 
 import configurePassport from './config/auth.js'
 import getSessionConfig from './config/session.js'
@@ -12,7 +11,6 @@ import adminRoutes from './config/routes/admin.js'
 import apiRoutes from './config/routes/api.js'
 import { defaultTemplateContext } from './controllers/_base.js'
 
-const prisma = new PrismaClient()
 const app = express()
 const port = 3000
 
@@ -22,8 +20,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 
 // Enable session authentication with Passport
-app.use(session(getSessionConfig(prisma)))
-configurePassport(passport, prisma)
+app.use(session(getSessionConfig()))
+configurePassport(passport)
 app.use(passport.initialize())
 app.use(passport.session())
 

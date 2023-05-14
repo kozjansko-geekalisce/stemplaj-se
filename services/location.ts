@@ -1,42 +1,24 @@
-import { PrismaClient, Location, User } from '@prisma/client'
+import { Location, User } from '@prisma/client'
 import { subHours } from 'date-fns'
 import {
   getDistanceBetweenPositionsInKm,
   type Position,
 } from '../utils/distance.js'
-const prisma = new PrismaClient()
+import VisitRepository from '../repositories/visit.js'
 
 const MINIMUM_HOURS_BETWEEN_VISITS = 12
 const MAXIMUM_DISTANCE_FOR_VISIT_IN_METERS = 250
-
-export async function getLocation(id: string) {
-  return await prisma.location.findUnique({ where: { id } })
-}
-
-export async function listAllLocations() {
-  return await prisma.location.findMany()
-}
-
-export async function createLocation(
-  name: string,
-  latitude: number,
-  longitude: number
-) {
-  return await prisma.location.create({ data: { name, latitude, longitude } })
-}
 
 export async function userVisitedLocationRecently(
   user: User,
   location: Location
 ) {
   const twelveHoursAgo = subHours(new Date(), MINIMUM_HOURS_BETWEEN_VISITS)
-  const recentVisit = await prisma.visit.findFirst({
-    where: {
-      createdAt: { gte: twelveHoursAgo },
-      visitor: user,
-      location,
-    },
-  })
+  const recentVisit = await VisitRepository.getMostRecent(
+    user.id,
+    location.id,
+    twelveHoursAgo
+  )
 
   return Boolean(recentVisit)
 }
