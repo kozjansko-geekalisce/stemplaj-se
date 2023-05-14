@@ -1,6 +1,4 @@
-<% const title = 'Lokacije' %>
-
-<%- include(`${partials}/header`, { title }); -%>
+<% const title = 'Lokacije' %> <%- include(`${partials}/header`, { title }); -%>
 <%- include(`${partials}/messages`) -%>
 
 <h1 class="title"><%= title %></h1>
@@ -20,7 +18,15 @@
     <tr>
       <td><%= location.id %></td>
       <td><%= location.name %></td>
-      <td><%= location.latitude %> <%= location.longitude %></td>
+      <td>
+        <a
+          href="https://www.openstreetmap.org/?mlat=<%= location.latitude %>&mlon=<%= location.longitude %>#map=17/<%= location.latitude %>/<%= location.longitude %>"
+          target="_blank"
+          title="Latitude: <%= location.latitude %>&#10;Longitude: <%= location.longitude %>"
+        >
+          OpenStreetMap 🔗
+        </a>
+      </td>
       <td>
         <form action="/admin/locations/delete/<%= location.id %>" method="post">
           <input
