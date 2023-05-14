@@ -4,7 +4,7 @@ import session from 'express-session'
 import passport from 'passport'
 import cookieParser from 'cookie-parser'
 
-import configurePassport from './config/auth.js'
+import configurePassport from './config/passport.js'
 import getSessionConfig from './config/session.js'
 import authRoutes from './config/routes/auth.js'
 import adminRoutes from './config/routes/admin.js'
