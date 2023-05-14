@@ -4,15 +4,9 @@ import type { Request, Response } from 'express'
 import {
   userVisitedLocationRecently,
   positionIsNearLocation,
-} from '../services/location.js'
-import { flashMessage } from '../utils/messages.js'
-import LocationRepository from '../repositories/location.js'
-import VisitRepository from '../repositories/visit.js'
-
-export const getVisitListContext = async (req: Request) => {
-  const visits = await VisitRepository.getMany()
-  return { visits }
-}
+} from '../../services/location.js'
+import LocationRepository from '../../repositories/location.js'
+import VisitRepository from '../../repositories/visit.js'
 
 export const postVisit = async (request: Request, response: Response) => {
   try {
@@ -37,19 +31,7 @@ export const postVisit = async (request: Request, response: Response) => {
   }
 }
 
-export const deleteVisitApi = async (request: Request, response: Response) => {
+export const deleteVisit = async (request: Request, response: Response) => {
   const success = await VisitRepository.delete(request.params.id)
   return response.sendStatus(success ? 204 : 422)
-}
-
-export const deleteVisitAdmin = async (
-  request: Request,
-  response: Response
-) => {
-  const success = await VisitRepository.delete(request.params.id)
-
-  if (success) flashMessage(request, 'Obisk uspešno izbrisan.', 'success')
-  else flashMessage(request, 'Obiska ni bilo mogoče izbrisati.', 'danger')
-
-  response.redirect('/admin/visits')
 }

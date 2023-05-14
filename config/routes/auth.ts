@@ -1,34 +1,27 @@
 import express, { Router, Request, Response } from 'express'
-import { type PassportStatic } from 'passport'
+import { PassportStatic } from 'passport'
+
+import { loginForm, logout } from '../../controllers/auth.js'
 
 export default function (passport: PassportStatic) {
   const router: Router = express.Router()
 
-  router.get('', (req: Request, res: Response) => {
-    res.redirect('/admin')
+  // Default redirects
+  router.get('', (_: Request, response: Response) => {
+    response.redirect('/admin')
   })
 
-  router.get('/login', async (req: Request, res: Response) => {
-    res.render('login')
-  })
-
+  // Auth
+  router.get('/login', loginForm)
+  router.get('/logout', logout)
   router.post(
     '/login/password',
     passport.authenticate('local', {
-      successReturnToOrRedirect: '/',
+      successRedirect: '/',
       failureRedirect: '/login',
       failureMessage: true,
     })
   )
-
-  router.get('/logout', (req, res, next) => {
-    req.logout((error) => {
-      if (error) {
-        return next(error)
-      }
-      res.redirect('/login')
-    })
-  })
 
   return router
 }
