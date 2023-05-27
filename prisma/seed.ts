@@ -24,6 +24,26 @@ async function main() {
     },
   })
 
+  const bellevue = await prisma.location.upsert({
+    where: { name: 'Bellevue' },
+    update: {},
+    create: {
+      name: 'Bellevue',
+      latitude: 46.24580555307261,
+      longitude: 15.636917489388885,
+    }, 
+  })
+
+  const central_cafe = await prisma.location.upsert({
+    where: { name: 'Central Cafe Rogaška Slatina' },
+    update: {},
+    create: {
+      name: 'Central Cafe Rogaška Slatina',
+      latitude: 46.23653780094142,
+      longitude: 15.638145248545941,
+    },
+  })
+
   const anica = await prisma.user.upsert({
     where: { email: 'anica@example.com' },
     update: {},
@@ -44,8 +64,28 @@ async function main() {
     },
   })
 
-  console.log({ anica, robi })
-  console.log({ boc, knjiznica })
+  const nastja = await prisma.user.upsert({
+    where: { email: 'nastja@example.com' },
+    update: {},
+    create: {
+      email: 'nastja@example.com',
+      name: 'Nastja',
+      password: await argon2id.hash('Nastja123!'),
+    },
+  })  
+
+  const niggo = await prisma.user.upsert({
+    where: { email: 'niggo@example.com' },
+    update: {},
+    create: {
+      email: 'niggo@example.com',
+      name: 'Niggo',
+      password: await argon2id.hash('Niggo123!'),
+    },
+  })  
+
+  console.log({ anica, robi, nastja, niggo })
+  console.log({ boc, knjiznica, central_cafe, bellevue })
 
   await prisma.visit.deleteMany()
 
@@ -55,6 +95,53 @@ async function main() {
       locationId: boc.id,
     },
   })
+
+  const visits = [
+    { visitorId: robi.id, locationId: central_cafe.id },
+    { visitorId: niggo.id, locationId: knjiznica.id },
+    { visitorId: nastja.id, locationId: knjiznica.id },
+    { visitorId: anica.id, locationId: central_cafe.id },
+    { visitorId: niggo.id, locationId: boc.id },
+    { visitorId: robi.id, locationId: bellevue.id },
+    { visitorId: anica.id, locationId: central_cafe.id },
+    { visitorId: nastja.id, locationId: knjiznica.id },
+    { visitorId: niggo.id, locationId: boc.id },
+    { visitorId: niggo.id, locationId: bellevue.id },
+    { visitorId: niggo.id, locationId: central_cafe.id },
+    { visitorId: niggo.id, locationId: central_cafe.id },
+    { visitorId: niggo.id, locationId: bellevue.id },
+    { visitorId: niggo.id, locationId: central_cafe.id },
+    { visitorId: robi.id, locationId: knjiznica.id },
+    { visitorId: robi.id, locationId: boc.id },
+    { visitorId: robi.id, locationId: central_cafe.id },
+    { visitorId: robi.id, locationId: boc.id },
+    { visitorId: robi.id, locationId: central_cafe.id },
+    { visitorId: robi.id, locationId: knjiznica.id },
+    { visitorId: robi.id, locationId: boc.id },
+    { visitorId: anica.id, locationId: central_cafe.id },
+    { visitorId: anica.id, locationId: bellevue.id },
+    { visitorId: anica.id, locationId: boc.id },
+    { visitorId: anica.id, locationId: central_cafe.id },
+    { visitorId: anica.id, locationId: central_cafe.id },
+    { visitorId: anica.id, locationId: bellevue.id },
+    { visitorId: anica.id, locationId: knjiznica.id },
+    { visitorId: anica.id, locationId: central_cafe.id },
+    { visitorId: anica.id, locationId: central_cafe.id },
+    { visitorId: anica.id, locationId: boc.id },
+    { visitorId: anica.id, locationId: central_cafe.id },
+    { visitorId: nastja.id, locationId: central_cafe.id },
+    { visitorId: nastja.id, locationId: central_cafe.id },
+    { visitorId: niggo.id, locationId: boc.id },
+    { visitorId: niggo.id, locationId: central_cafe.id },
+    { visitorId: niggo.id, locationId: central_cafe.id },
+    { visitorId: niggo.id, locationId: central_cafe.id },
+  ];
+  
+  for (const visitData of visits) {
+    await prisma.visit.create({
+      data: visitData,
+    });
+  }  
 }
 
 main()
