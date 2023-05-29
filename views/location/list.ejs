@@ -15,7 +15,7 @@
   </thead>
   <tbody>
     <% locations.forEach(location => { %>
-    <tr>
+    <tr onclick="location.href='locations/<%= location.id %>';">
       <td><%= location.id %></td>
       <td><%= location.name %></td>
       <td>

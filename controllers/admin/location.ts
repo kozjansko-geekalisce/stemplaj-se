@@ -2,6 +2,7 @@ import { Request, Response } from 'express'
 
 import LocationRepository from '#repositories/location.js'
 import { flashMessage } from '#utils/messages.js'
+import VisitRepository from '../../repositories/visit.js'
 
 export const listLocations = async (_: Request, response: Response) => {
   const context = {
@@ -38,3 +39,10 @@ export const deleteLocation = async (request: Request, response: Response) => {
 
   response.redirect('/admin/locations')
 }
+
+export const getLocation = async (request: Request, response: Response) => {
+  const locationId = request.params.id;
+  const location = await LocationRepository.getOneById(locationId);
+  const topVisits = await VisitRepository.getTopFrequentVisitors(locationId, 3);
+  response.render('location/details', { location, visitors: topVisits });
+};

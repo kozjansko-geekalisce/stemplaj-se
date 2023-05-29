@@ -1,0 +1,26 @@
+<% const title = 'Location Details: ' + location.name %>
+
+<%- include(`${partials}/header`, { title }); -%>
+<%- include(`${partials}/messages`); -%>
+
+<h1 class="title"><%= title %></h1>
+<p class="subtitle">Location Information:</p>
+
+<div>
+  <strong>Location ID:</strong> <%= location.id %><br>
+  <strong>Name:</strong> <%= location.name %><br>
+  <strong>Latitude:</strong> <%= location.latitude %><br>
+  <strong>Longitude:</strong> <%= location.longitude %><br>
+</div>
+
+<br>
+
+<p class="subtitle">Top 3 visitors:</p>
+
+<% visitors.forEach(visitor => { %>
+    <p>Name: <%= visitor.name %></p>
+    <p>Email: <%= visitor.email %></p>
+    <p>Visit Count: <%= visitor.visitCount %></p>
+    <hr>
+  <% }) %>      
+<%- include(`${partials}/footer`); -%>

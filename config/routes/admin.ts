@@ -6,6 +6,7 @@ import {
   createLocationPost,
   deleteLocation,
   listLocations,
+  getLocation
 } from '#controllers/admin/location.js'
 import { listUsers } from '#controllers/admin/user.js'
 import { deleteVisit, listVisits } from '#controllers/admin/visit.js'
@@ -24,6 +25,7 @@ export default function () {
   router.get('/locations/create', ensureLogin, createLocationGet)
   router.post('/locations/create', ensureLogin, createLocationPost)
   router.post('/locations/delete/:id', ensureLogin, deleteLocation)
+  router.get('/locations/:id', ensureLogin, getLocation);
 
   // Users
   router.get('/users', ensureLogin, listUsers)
