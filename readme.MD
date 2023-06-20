@@ -23,6 +23,9 @@ Make sure you have a recent version of Node installed locally.
 # Start dev container with the database in the background
 docker compose up postgres -d
 
+# Create .env file
+cp .env.example .env
+
 # Install npm dependencies
 yarn
 
